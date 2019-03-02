@@ -180,13 +180,12 @@ canvas {
 
    border-right: 1px solid black;
    height: inherit;
-   width: 250px;
    padding-left: 20px;
    padding-right: 10px;
    position: fixed;
    z-index: 5;
 
-   font-size: 0.9em;
+   font-size: 1.5em;
 
    box-shadow: 4px 0 10px rgba(0,0,0,0.25);
    -moz-box-shadow: 4px 0 10px rgba(0,0,0,0.25);
@@ -273,32 +272,8 @@ canvas {
    color: #666;
 }
 
-#examples {
-   /* width: 60em; */
-   width: auto;
-   z-index: 12;
-   position: absolute;
-   display: none;
-   background: #f8e8ff;
-   border: solid 1px #888;
-   padding: 1em;
-   border-radius: 5px;
-   box-shadow: 0px 0px 10px #849;
-}
-
 #examples td {
    white-space: nowrap;
-}
-
-#examples li {
-   list-style-type: none;
-}
-
-#examplesHandle {
-   bottom: 0px;
-   left: 45%;
-   position: relative;
-   z-index: 10;
 }
 
 .examplesSeparator {

@@ -46,6 +46,9 @@ Purpose:
       <nav>
         <div id="menuVersion"></div>
         <p/>
+        <div class="navlink"><a href='#'>3D Models</a></div>
+        <div id="examples"></div>
+        <p/>
         <table class="info">
           <tr><td class="infoView" colspan=2>Editor</td></tr>
           <tr><td align="right" class="infoOperation">Render Code</td><td class="infoKey">F5 or SHIFT + Return</td></tr>
@@ -60,38 +63,7 @@ Purpose:
           <tr><td align="right" class="infoOperation">Rotate XY</td><td class="infoKey">Right Mouse or ALT + Left Mouse</td></tr>
           <tr><td align="right" class="infoOperation">Zoom In/Out</td><td class="infoKey">Wheel Mouse or CTRL + Left Mouse</td></tr>
         </table>
-        <p>
-          <a class="navlink" href="https://openjscad.org/dokuwiki/doku.php" target="_blank" rel="noopener">User Guide / Documentation <img src="imgs/externalLink.png" style="externalLink"></a>
-          <br/><span class="menuSubInfo">How to program with OpenJSCAD: online, offline &amp; CLI</span>
-        </p>
-        <p>
-          <a class="navlink" href="https://plus.google.com/communities/114958480887231067224" rel="publisher" target="_blank" rel="noopener">Recent Updates <img src="imgs/externalLink.png" style="externalLink"></a>
-          <br/><span class="menuSubInfo">Announcements of recent developments</span>
-        </p>
-        <p>
-          <a class="navlink" href="https://plus.google.com/communities/114958480887231067224" target="_blank" rel="noopener">Google+ Community <img src="imgs/externalLink.png" style="externalLink"></a>
-          <br/><span class="menuSubInfo">Discuss with other users &amp; developers</span>
-        </p>
-        <div id="examplesTitle" class="navlink"><a href='#' onclick='return false'>Examples</a></div>
-        <div id="examples"></div>
-        <span class="menuSubInfo">Dozens of examples to learn from</span>
         <p/>
-<!--
-        <div id="optionsTitle" class="navlink"><a href='#' onclick='return false'>Options</a></div>
-        <div id="options"></div>
-        <span class="menuSubInfo">Your personal settings</span></p>
- -->
-        <p/>
-        <b>Supported Formats</b>
-        <table class="info">
-          <tr><td align="right"><b>jscad</b></td><td><a target="_blank" rel="noopener" href="https://openjscad.org/dokuwiki/doku.php">OpenJSCAD</a> (native, import/export)</td></tr>
-          <tr><td align="right"><b>scad</b></td><td><a target="_blank" rel="noopener" href="http://openscad.org">OpenSCAD</a> (<a target=_blank href="https://openjscad.org/dokuwiki/doku.php">experimental</a>, import)</td></tr>
-          <tr><td align="right"><b>stl</b></td><td><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/STL_(file_format)">STL format</a> (experimental, import/export)</td></tr>
-          <tr><td align="right"><b>amf</b></td><td><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Additive_Manufacturing_File_Format">AMF format</a> (experimental, import/export)</td></tr>
-          <tr><td align="right"><b>dxf</b></td><td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/AutoCAD_DXF">DXF format</a> (experimental, import/export)</td></tr>
-          <tr><td align="right"><b>x3d</b></td><td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/X3D">X3D format</a> (experimental, export)</td></tr>
-          <tr><td align="right"><b>svg</b></td><td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics">SVG format</a> (experimental, import/export)</td></tr>
-        </table>
         <p><a class="navlink about" href="#">About</a></p>
       </nav>
     </div> <!-- /menu -->
@@ -139,20 +111,6 @@ Get your copy/clone/fork from <a href="https://github.com/jscad/OpenJSCAD.org" t
         <img id="editHandle" src="imgs/editHandleIn.png"></img>
       </div>
       <div id="editor">
-// -- OpenJSCAD.org logo
-
-function main() {
-   return union(
-      difference(
-         cube({size: 3, center: true}),
-         sphere({r:2, center: true})
-      ),
-      intersection(
-          sphere({r: 1.3, center: true}),
-          cube({size: 2.1, center: true})
-      )
-   ).translate([0,0,1.5]).scale(10);
-}
       </div>
     </div> <!-- editor -->
 
@@ -163,27 +121,9 @@ function main() {
     <div id="parametersdiv"></div>
     <div id="selectdiv"></div>
 
-<!-- design information (status message, download buttons, drag and drop area, etc) -->
+<!-- design information (status message, download buttons, etc) -->
     <div id="tail">
       <div id="statusdiv"></div>
-      <div id="filedropzone">
-        <div id="filedropzone_empty">
-        </div>
-        <div id="filedropzone_input">
-          <p>
-            <label class="input-control">Add Supported Files: <input type="file" id="files-input" accept="*/*" multiple="1"></input></label>
-          </p>
-        </div>
-        <div id="filedropzone_filled">
-          <span id="currentfile">...</span>
-          <div id="filebuttons">
-            <button id="getstlbutton" style="display:none" onclick="getStl();">Get STL</button>
-            <button id="reloadAllFiles">Reload</button>
-           <!--button onclick="parseFile(gCurrentFile,true,false);">Debug (see below)</button-->
-            <label for="autoreload">Auto Reload</label><input type="checkbox" name="autoreload" value="" id="autoreload">
-          </div>
-        </div>
-      </div>
     </div> <!-- tail -->
 
 <!-- footer (version, copyright) -->

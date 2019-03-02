@@ -94808,7 +94808,8 @@ function createExamples(me) {
         src += '</td><td class="examplesSeparator" widthx=' + colp + ' valign=top>';
       }
       if (examples[i].spacing) src += '<p/>';
-      src += '<li><a class=\'example\' data-path=' + ('examples/' + examples[i].file) + ' href=\'#\'> + ' + examples[i].title + ' </a>\n';
+      const path = `models/${examples[i].file}`;
+      src += `<li><a class="example" data-path="${path}" href="#${path}">${examples[i].title}</a>`;
       if (examples[i].type) src += ' <span class=type>(' + examples[i].type + ')</span></a>';
       if (examples[i].new) src += ' <span class=newExample>new</span></a>';
     }
@@ -94967,11 +94968,11 @@ function loadInitialExample(me, params) {
 
     // const proxyPath = fetchUriParams(url, 'proxyPath', undefined)
     var useProxy = params.proxyUrl !== undefined || document.URL.match(/#(https?:\/\/\S+)$/) !== null;
-    var documentUri = fetchUriParams(_url, 'uri', undefined) || nth(1, document.URL.match(/#(https?:\/\/\S+)$/)) || nth(1, document.URL.match(/#(examples\/\S+)$/));
+    var documentUri = fetchUriParams(_url, 'uri', undefined) || nth(1, document.URL.match(/#(https?:\/\/\S+)$/)) || nth(1, document.URL.match(/#(models\/\S+)$/));
     var baseUrl = location.protocol + '//' + location.host + location.pathname;
 
     var isRemote = documentUri ? documentUri.match(/(https?:\/\/\S+)$/) !== null : false;
-    var isLocal = documentUri ? documentUri.match(/(examples\/\S+)$/) !== null : false;
+    var isLocal = documentUri ? documentUri.match(/(models\/\S+)$/) !== null : false;
     var isInLocalStorage = localStorage.editorContent && localStorage.editorContent.length;
 
     if (isRemote) // remote file referenced, e.g. http://openjscad.org/#http://somewhere/something.ext
@@ -94983,7 +94984,7 @@ function loadInitialExample(me, params) {
     } else if (isInLocalStorage) {
       loadLocalStorage(localStorage.editorContent, params);
     } else {
-      fetchExample('examples/' + examples[0].file, undefined, params);
+      fetchExample('models/' + examples[0].file, undefined, params);
     }
   }
 }
@@ -95101,11 +95102,9 @@ function init() {
 
     var initialMenuHidingTimeoutID = setTimeout(function () {
       initialMenuHidingTimeoutID = null;
-      menu.style.left = '-280px';
-      _menuHandle.src = 'imgs/menuHandleVLOut.png';
-      if (examples) {
-        setElementHeight(examples, '0px');
-        examples.style.display = 'none';
+      menu.style.left = `-${menu.clientWidth}px`;
+      if (_menuHandle) {
+        _menuHandle.src = 'imgs/menuHandleVLOut.png';
       }
     }, 3000); // -- hide slide-menu after 3secs
 
@@ -95128,23 +95127,6 @@ function init() {
       createExamples(me);
       loadInitialExample(me, { memFs: memFs, gProcessor: gProcessor, gEditor: gEditor, proxyUrl: proxyUrl });
 
-      // -- Examples
-      examplesTitle.addEventListener('click', function (e) {
-        if (initialMenuHidingTimeoutID !== null) {
-          clearTimeout(initialMenuHidingTimeoutID);
-          initialMenuHidingTimeoutID = null;
-        }
-        // When closed, examples.style.display may be '' or 'none'.
-        // When open, it's reliably 'inline', so test against that.
-        if (examples.style.display === 'inline') {
-          setElementHeight(examples, '0px');
-          examples.style.display = 'none';
-        } else {
-          setElementHeight(examples, 'auto');
-          examples.style.display = 'inline';
-        }
-      });
-
       var list = examples.querySelectorAll('.example');
       for (var i = 0; i < list.length; i++) {
         list[i].addEventListener('click', onLoadExampleClicked);
@@ -95157,20 +95139,14 @@ function init() {
         clearTimeout(initialMenuHidingTimeoutID);
         initialMenuHidingTimeoutID = null;
       }
-      // When open, left may be '' or '0' or '0px'.  When closed, it's reliably
-      // '-280px', so test against that.
-      if (menu.style.left === '-280px') {
-        // It's closed; open it.
-        menu.style.left = '0';
-        _menuHandle.src = 'imgs/menuHandleVLIn.png';
-      } else {
+      if (menu.style.left === '0px') {
         // It's open; close it, and close Examples with it.
-        menu.style.left = '-280px';
+        menu.style.left = `-${menu.clientWidth}px`;
         _menuHandle.src = 'imgs/menuHandleVLOut.png';
-        if (examples) {
-          setElementHeight(examples, '0px');
-          examples.style.display = 'none';
-        }
+      } else {
+        // It's closed; open it.
+        menu.style.left = '0px';
+        _menuHandle.src = 'imgs/menuHandleVLIn.png';
       }
     });
   }
